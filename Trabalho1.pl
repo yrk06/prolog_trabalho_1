@@ -4,11 +4,11 @@
 menu:-
     write('\e[2J'),
     nl,
-    write('***************************************'),
+    write('---------------------------------------'),
     nl,
     write('*    DOMÍNIO INSTITUIÇÃO DE ENSINO    *'),
     nl,
-    write('***************************************'),
+    write('---------------------------------------'),
     nl,
     writeln('Escolha qual a opcao deseja executar: '),
     nl,
@@ -31,11 +31,11 @@ menu:-
 
 menu :-
     nl,
-    write('***************************************'),
+    write('---------------------------------------'),
     nl,
     write('*    DOMÍNIO INSTITUIÇÃO DE ENSINO    *'),
     nl,
-    write('***************************************'),
+    write('---------------------------------------'),
     nl,
     write('Saindo!'), 
     nl,
@@ -64,6 +64,38 @@ executa( 7 ) :-
 
 executa( 8 ) :-
     op8.
+
+incluir_estudante:-
+    write('---------------------------------------'),
+    nl,
+    write('Incluir Estudante'),
+    nl,
+    writeln('---------------------------------------'),
+    nl,
+    writeln('Informe a matricula do Estudante: '),
+    read(Matricula),
+    writeln('Informe o Nome do Estudante: '),
+    read(Nome),
+    writeln('Informe a data de nacimento do Estudante: '),
+    write('dia'),
+    read(Dia),
+    write('Mes'),
+    read(Mes),
+    write('Ano'),
+    read(Ano),
+    writeln('Informe o Endereco do Estudante: '),
+    read(Endereco),
+    X = data(Dia,Mes,Ano),
+    assert(estudante(Matricula,Nome,X,Endereco)),
+    nl,
+    write('---------------------------------------'),
+    nl,
+    write('Estudante Incluir Com Sucesso'),
+    nl,
+    writeln('---------------------------------------'),
+    nl,
+    writeln('Digite algo para voltar:'),
+    read(_).
 
 excluir_estudante_e_suas_notas:-
     write('---------------------------------------'),
@@ -125,4 +157,4 @@ calculate_notas(X) :-
     writef('Disciplina: %t Ano: %t Nota: %t \n',[DIS,ANO,NOTA]),
     fail.
 
-calculate_notas(X).
+calculate_notas(_).
