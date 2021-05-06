@@ -45,7 +45,7 @@ executa( 1 ) :-
     incluir_estudante.
 
 executa( 2 ) :- 
-    op2.
+    incluir_notas_do_estudante.
 
 executa( 3 ) :-
     op3.
@@ -107,6 +107,44 @@ incluir_estudante(Matricula):-
     write('---------------------------------------'),
     nl,
     write('Estudante Incluir Com Sucesso'),
+    nl,
+    writeln('---------------------------------------'),
+    nl,
+    writeln('Digite algo para voltar:'),
+    read(_).
+
+incluir_notas_do_estudante:-
+    write('---------------------------------------'),
+    nl,
+    write('Incluir Nota do Estudante'),
+    nl,
+    writeln('---------------------------------------'),
+    nl,
+    writeln('Informe a matricula do Estudante: '),
+    read(Matricula),
+    estudante(Matricula,_,_,_),
+    writeln('Informe o Nome do Materia: '),
+    read(Materia),
+    writeln('Informe o Ano do Estudante: '),
+    read(Ano),
+    writeln('Informe a Nota do Estudante: '),
+    read(Nota),
+    assert(nota(Matricula,Materia,Ano,Nota)),
+    nl,
+    write('---------------------------------------'),
+    nl,
+    write('Nota do Estudante Incluir Com Sucesso'),
+    nl,
+    writeln('---------------------------------------'),
+    nl,
+    writeln('Digite algo para voltar:'),
+    read(_).
+
+incluir_notas_do_estudante:-
+    nl,
+    write('---------------------------------------'),
+    nl,
+    write('Matricula nao existe'),
     nl,
     writeln('---------------------------------------'),
     nl,
