@@ -211,10 +211,7 @@ div_zero(0,_):-
     nl,
     write('Este aluno nao possui Notas'),
     nl,
-    writeln('---------------------------------------'),
-    nl,
-    writeln('Digite algo para voltar:'),
-    read(_).
+    writeln('---------------------------------------').
 
 div_zero(A,B):-
     C is B / A,
