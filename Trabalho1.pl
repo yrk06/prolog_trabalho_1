@@ -1,3 +1,6 @@
+:- dynamic estudante/4.
+:- dynamic nota/4.
+
 menu:-
     write('\e[2J'),
     nl,
@@ -48,7 +51,7 @@ executa( 3 ) :-
     op3.
 
 executa( 4 ) :-
-    op4.
+    excluir_estudante_e_suas_notas.
 
 executa( 5 ) :-
     op5.
@@ -61,6 +64,34 @@ executa( 7 ) :-
 
 executa( 8 ) :-
     op8.
+
+excluir_estudante_e_suas_notas:-
+    write('---------------------------------------'),
+    nl,
+    write('Excluir Estudante e suas Notas'),
+    nl,
+    writeln('---------------------------------------'),
+    nl,
+    writeln('Informe a matricula do Estudante: '),
+    read(X),
+    nl,
+    estudante(X,_,_,_),
+    retractall(estudante(X,_,_,_)),
+    retractall(nota(X,_,_,_)),
+    writeln('excluido com sucesso'),
+    nl,
+    writeln('Digite algo para voltar:'),
+    read(_).
+
+excluir_estudante_e_suas_notas:-
+    write('---------------------------------------'),
+    nl,
+    write('Matricula nao registra/nao existe'),
+    nl,
+    writeln('---------------------------------------'),
+    nl,
+    writeln('Digite algo para voltar:'),
+    read(_).
 
 
 load :-
