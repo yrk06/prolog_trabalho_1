@@ -42,7 +42,7 @@ menu :-
     abort.
 
 executa( 1 ) :-
-    op1.
+    incluir_estudante.
 
 executa( 2 ) :- 
     op2.
@@ -74,6 +74,22 @@ incluir_estudante:-
     nl,
     writeln('Informe a matricula do Estudante: '),
     read(Matricula),
+    incluir_estudante(Matricula).
+    
+
+incluir_estudante(Matricula):-
+    estudante(Matricula,_,_,_),
+    nl,
+    write('---------------------------------------'),
+    nl,
+    write('Matricula Ja esta em uso'),
+    nl,
+    writeln('---------------------------------------'),
+    nl,
+    writeln('Digite algo para voltar:'),
+    read(_).
+
+incluir_estudante(Matricula):-
     writeln('Informe o Nome do Estudante: '),
     read(Nome),
     writeln('Informe a data de nacimento do Estudante: '),
