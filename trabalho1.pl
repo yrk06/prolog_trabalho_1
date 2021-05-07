@@ -7,7 +7,7 @@ menu:-
     nl,
     write('---------------------------------------'),
     nl,
-    write('*    DOMÍNIO INSTITUIÇÃO DE ENSINO    *'),
+    write('*    DOMINIO INSTITUICAO DE ENSINO    *'),
     nl,
     write('---------------------------------------'),
     nl,
@@ -26,7 +26,7 @@ menu:-
     writeln('Informe a opcao: '),
     read(Entrada),
     nl,
-    Entrada =\= 9,
+    Entrada =\= 0,
     executa( Entrada ),
     menu.
 
@@ -34,7 +34,7 @@ menu:-
     nl,
     write('---------------------------------------'),
     nl,
-    write('*    DOMÍNIO INSTITUIÇÃO DE ENSINO    *'),
+    write('*    DOMINIO INSTITUICAO DE ENSINO    *'),
     nl,
     write('---------------------------------------'),
     nl,
@@ -296,14 +296,14 @@ zero(A,B):-
 /* op 6 inicio */
 salva_estudante(A):-
     retract(estudante(Matricula, Nome, data(Dia, Mes, Ano), Endereco)),
-    format(A,"estudante('~a','~a','~a','~a').\n",
-    [Matricula, Nome, data(Dia,Mes,Ano), Endereco]),
+    format(A,'estudante(\'~a\',\'~a\',data(~a,~a,~a),\'~a\').\n',
+    [Matricula, Nome, Dia,Mes,Ano, Endereco]),
     fail.
 salva_estudante(_).
 
 salva_nota(A):-
     retract(nota(Matricula, Disciplina, Ano, Nota)),
-    format(A,"nota('~a','~a','~a','~a').\n",
+    format(A,'nota(\'~a\',\'~a\',\'~a\',\'~a\').\n',
     [Matricula, Disciplina, Ano, Nota]),
     fail.
 salva_nota(_).
@@ -351,33 +351,3 @@ limpar_banco_de_dados:-
     writeln('Digite algo para voltar:'),
     read(_).
 /* op 8 fim */
-
-
-display_aluno(X) :-
-    writef('/*********************************/
-    Aluno: %t \n',[X]),
-    retractall(acumulador_calc_quantidade_notas(_)),
-    retractall(acumulador_calc_total_notas(_)),
-    assert(acumulador_calc_quantidade_notas(0)),
-    assert(acumulador_calc_total_notas(0)),
-    calculate_notas(X),
-    retract(acumulador_calc_quantidade_notas(A)),
-    retract(acumulador_calc_total_notas(B)),
-    C is B / A,
-    writef('Nota media: %t \n',[C]).
-
-
-
-calculate_notas(X) :-
-    estudante(ID,X,_,_),
-    nota(ID,DIS,ANO,NOTA),
-    retract(acumulador_calc_quantidade_notas(NOTAS_AC)),
-    retract(acumulador_calc_total_notas(NOTAS_TOTAL)),
-    NEW_NOTAS_AC is NOTAS_AC + 1,
-    NEW_NOTAS_TOTAL is NOTAS_TOTAL + NOTA,
-    assert(acumulador_calc_quantidade_notas(NEW_NOTAS_AC)),
-    assert(acumulador_calc_total_notas(NEW_NOTAS_TOTAL)),
-    writef('Disciplina: %t Ano: %t Nota: %t \n',[DIS,ANO,NOTA]),
-    fail.
-
-calculate_notas(_).
