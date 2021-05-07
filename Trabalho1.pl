@@ -26,7 +26,7 @@ menu:-
     writeln('Informe a opcao: '),
     read(Entrada),
     nl,
-    Entrada =\= 8,
+    Entrada =\= 9,
     executa( Entrada ),
     menu.
 
