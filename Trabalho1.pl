@@ -55,7 +55,11 @@ executa( 4 ) :-
     excluir_estudante_e_suas_notas.
 
 executa( 5 ) :-
-    op5.
+    retractall(totalnotas(_)),
+    assert(totalnotas(0)),
+    retractall(cont(_)),
+    assert(cont(0)),
+    relatorio_dos_estudantes.
 
 executa( 6 ) :-
     op6.
@@ -66,6 +70,7 @@ executa( 7 ) :-
 executa( 8 ) :-
     op8.
 
+/* op 1 inicio */
 incluir_estudante:-
     write('---------------------------------------'),
     nl,
@@ -113,7 +118,9 @@ incluir_estudante(Matricula):-
     nl,
     writeln('Digite algo para voltar:'),
     read(_).
+/* op 1 fim */
 
+/* op 2 inicio */
 incluir_notas_do_estudante:-
     write('---------------------------------------'),
     nl,
@@ -151,6 +158,7 @@ incluir_notas_do_estudante:-
     nl,
     writeln('Digite algo para voltar:'),
     read(_).
+/* op 2 fim */
 
 /* op 3 inicio */
 localizar_estudante_pela_matricula:-
@@ -162,7 +170,14 @@ localizar_estudante_pela_matricula:-
     nl,
     writeln('Informe a matricula do Estudante: '),
     read(Matricula),
-    estudante(Matricula,Nome,data(Dia,Mes,Ano),Endereco),
+    nl,
+    localizar_estudante_pela_matricula(Matricula),
+    nl,
+    writeln('Digite algo para voltar:'),
+    read(_).
+
+localizar_estudante_pela_matricula(Matricula):-
+    estudante(Matricula,Nome,data(Dia,Mes,Ano),Endereco),!,
     writef('matriculo do estudante: %t \n',[Matricula]),
     writef('Nome do aluno: %t \n',[Nome]),
     writef('data de nascimento %t / %t / %t \n',[Dia,Mes,Ano]),
@@ -172,22 +187,16 @@ localizar_estudante_pela_matricula:-
     retractall(total_notas(_)),
     assert(quantidade_notas(0)),
     assert(total_notas(0)),
-    suasnotas(Matricula),
-    nl,
-    writeln('Digite algo para voltar:'),
-    read(_).
+    suasnotas(Matricula).
 
 
-localizar_estudante_pela_matricula:-
+localizar_estudante_pela_matricula(_):-
     nl,
     write('---------------------------------------'),
     nl,
     write('Matricula nao existe'),
     nl,
-    writeln('---------------------------------------'),
-    nl,
-    writeln('Digite algo para voltar:'),
-    read(_).
+    writeln('---------------------------------------').
 
 suasnotas(Matricula):-
     nota(Matricula,DIS,ANO,NOTA),
@@ -203,6 +212,12 @@ suasnotas(Matricula):-
 suasnotas(_):-
     retract(quantidade_notas(A)),
     retract(total_notas(B)),
+    retract(cont(X)),
+    MaisX is X + A,
+    assert(cont(MaisX)),
+    retract(totalnotas(F)),
+    New_totalnotas is B + F,
+    assert(totalnotas(New_totalnotas)),
     div_zero(A,B).
 
 div_zero(0,_):-
@@ -211,14 +226,17 @@ div_zero(0,_):-
     nl,
     write('Este aluno nao possui Notas'),
     nl,
-    writeln('---------------------------------------').
+    writeln('---------------------------------------'),!.
 
 div_zero(A,B):-
     C is B / A,
     writef('total de notas: %t \n',[A]),
-    writef('Nota media: %t \n',[C]).
+    writef('Nota media: %t \n',[C]),
+    writeln('---------------------------------------'),
+    nl.
 /* op 3 fim */
 
+/* op 4 inicio*/
 excluir_estudante_e_suas_notas:-
     write('---------------------------------------'),
     nl,
@@ -246,7 +264,34 @@ excluir_estudante_e_suas_notas:-
     nl,
     writeln('Digite algo para voltar:'),
     read(_).
+/* op 4 fim*/
 
+/* op 5 inicio */
+relatorio_dos_estudantes:-
+    estudante(Matricula,_,_,_),
+    localizar_estudante_pela_matricula(Matricula),
+    fail.
+
+relatorio_dos_estudantes:-
+    totalnotas(X),
+    cont(B),
+    zero(B,X),
+    writeln('Digite algo para voltar:'),
+    read(_).
+
+zero(0,_):-
+    nl,
+    write('---------------------------------------'),
+    nl,
+    write('Nota geral media: 0'),
+    nl,
+    writeln('---------------------------------------'),!.
+
+zero(A,B):-
+    C is B / A,
+    writef('Nota geral media: %w \n',[C]),
+    nl.
+/* op 5 fim*/
 
 load :-
     [dadostrabalho1].
