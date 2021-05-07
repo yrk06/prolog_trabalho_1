@@ -30,7 +30,7 @@ menu:-
     executa( Entrada ),
     menu.
 
-menu :-
+menu:-
     nl,
     write('---------------------------------------'),
     nl,
@@ -42,33 +42,33 @@ menu :-
     nl,
     abort.
 
-executa( 1 ) :-
+executa( 1 ):-
     incluir_estudante.
 
-executa( 2 ) :- 
+executa( 2 ):- 
     incluir_notas_do_estudante.
 
-executa( 3 ) :-
+executa( 3 ):-
     localizar_estudante_pela_matricula.
 
-executa( 4 ) :-
+executa( 4 ):-
     excluir_estudante_e_suas_notas.
 
-executa( 5 ) :-
+executa( 5 ):-
     retractall(totalnotas(_)),
     assert(totalnotas(0)),
     retractall(cont(_)),
     assert(cont(0)),
     relatorio_dos_estudantes.
 
-executa( 6 ) :-
+executa( 6 ):-
     op6.
 
-executa( 7 ) :-
-    op7.
+executa( 7 ):-
+    load.
 
-executa( 8 ) :-
-    op8.
+executa( 8 ):-
+    limpar_banco_de_dados.
 
 /* op 1 inicio */
 incluir_estudante:-
@@ -82,7 +82,6 @@ incluir_estudante:-
     read(Matricula),
     incluir_estudante(Matricula).
     
-
 incluir_estudante(Matricula):-
     estudante(Matricula,_,_,_),
     nl,
@@ -285,7 +284,8 @@ zero(0,_):-
     nl,
     write('Nota geral media: 0'),
     nl,
-    writeln('---------------------------------------'),!.
+    writeln('---------------------------------------'),
+    nl,!.
 
 zero(A,B):-
     C is B / A,
@@ -293,8 +293,32 @@ zero(A,B):-
     nl.
 /* op 5 fim*/
 
-load :-
-    [dadostrabalho1].
+/* op 7 inicio */
+load:-
+    [dadostrabalho1],
+    write('---------------------------------------'),
+    nl,
+    write('Carregado com Sucesso'),
+    nl,
+    writeln('---------------------------------------'),
+    nl,
+    writeln('Digite algo para voltar:'),
+    read(_).
+/* op 7 fim */
+
+/* op 8 inicio */
+limpar_banco_de_dados:-
+    retractall(estudante(_,_,_,_)),
+    retractall(nota(_,_,_,_)),
+    write('---------------------------------------'),
+    nl,
+    write('Banco de Dados Limpar com Sucesso'),
+    nl,
+    writeln('---------------------------------------'),
+    nl,
+    writeln('Digite algo para voltar:'),
+    read(_).
+/* op 8 fim */
 
 
 display_aluno(X) :- 
